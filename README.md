@@ -1,1 +1,1 @@
-# CraftingInterpreters
+Crafting interpreters project both projects will be programmed in c++. This is an attempt of mine to learn how compilation process work. Also become a c++ gigachad and ofcourse show off my project near my friends.
