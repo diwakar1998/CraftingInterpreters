@@ -1,19 +1,21 @@
 #include<iostream>
 #include<vector>
 #include<fstream>
-using namespace std;
+#include"Scanner.hpp"
+
 
 class Lox{
+    
     public:
     static bool hadError;
     Lox(){
         hadError= false;
     }
     
-    void runFile(string filePath){
-        fstream inFile;
-        inFile.open(filePath,ios::in);
-        string buffer;
+    void runFile(std::string filePath){
+        std::fstream inFile;
+        inFile.open(filePath,std::ios::in);
+        std::string buffer;
         // for(;;){
             getline(inFile,buffer);
             // cout<<buffer;
@@ -24,29 +26,35 @@ class Lox{
 
     void runPrompt(){
         for(;;){
-            cout<<"> ";
-            string line;
-            getline(cin,line);
+            std::cout<<"> ";
+            std::string line;
+            getline(std::cin,line);
             if(line.length()==0)break;
             run(line);
             hadError = false;
         }
     }
-
-    void run(string source){
-        Scanner scanner = new Scanner(source);
-        vector<Token> tokens = scanner.scanTokens();
+    /***
+     * 
+     * continue at 4.2
+     * 
+     * 
+     * 
+    */
+    void run(std::string source){
+        Scanner scanner(source);
+       std::vector<Token> tokens = scanner.scanTokens();
 
         for(Token token:tokens){
-            cout<<token;
+            std::cout<<token;
         }
     }
-    void error(int line,string message){
+    void error(int line,std::string message){
         report(line,"",message);
     }
 
-    void report(int line, string where,string message){
-        cout<<"[line "<<line<<" ] Error"<<where<<": "<<message;
+    void report(int line, std::string where,std::string message){
+        std::cout<<"[line "<<line<<" ] Error"<<where<<": "<<message;
         hadError = true;
     }
 };
@@ -55,7 +63,7 @@ int main(int argc, char const *argv[])
 {
     Lox lox;
     if(argc>2){
-        cout<<"Usage: jlox [script]\n";
+        std::cout<<"Usage: jlox [script]\n";
         exit(0);
     }
     else if(argc == 2){
